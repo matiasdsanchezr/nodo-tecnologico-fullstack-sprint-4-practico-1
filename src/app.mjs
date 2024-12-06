@@ -27,6 +27,11 @@ app.use(express.static("public"));
 // Middleware para poder usar layouts EJS
 app.use(expressEjsLayouts);
 
+// Establecer el index del sitio
+app.get("/", (req, res) => {
+  return res.redirect("/api/heroes");
+});
+
 // Routes/endpoints de superhéroes
 app.use("/api", superHeroRoutes);
 
