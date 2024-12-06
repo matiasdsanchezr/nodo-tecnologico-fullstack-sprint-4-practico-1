@@ -1,0 +1,49 @@
+### Obtener todos los superheroes
+GET http://localhost:3000/api/heroes HTTP/1.1
+
+
+### Obtener los datos de un superheroe usando su id 
+GET http://localhost:3000/api/heroes/672229c63c1a2ce7fd5e251b HTTP/1.1
+
+
+### Obtener una lista de superheroes que tengan un atributo especifico
+GET http://localhost:3000/api/heroes/buscar/nombreReal/thor HTTP/1.1
+
+
+### Obtener una lista de superheroes con edad mayor a 30
+GET http://localhost:3000/api/heroes/mayores-30 HTTP/1.1
+
+
+### Agregar un nuevo superhéroe
+POST http://localhost:3000/api/heroes/agregar HTTP/1.1
+content-type: application/json
+
+{
+  "nombreSuperHeroe": "Hulk",
+  "nombreReal": "Bruce Banner",
+  "edad": "38",
+  "planetaOrigen": "Tierra",
+  "debilidad": "Ataques psíquicos",
+  "poderes": ["Super Fuerza", "Super Salto", "Regeneración"],
+  "aliados": ["Rick Jones"],
+  "enemigos": ["Abominación"],
+  "creador": "Matias Sanchez"
+}
+
+
+### Actualizar los datos de un superheroe
+PUT http://localhost:3000/api/heroes/6736a4e44520c7ae7fceeb8f/editar HTTP/1.1
+content-type: application/json
+
+{
+    "nombreSuperHeroe": "Hulk Modded",
+    "edad": "38"
+}
+
+
+### Eliminar un superhéroe
+DELETE http://localhost:3000/api/heroes/673400c15dfa0b14533efe64 HTTP/1.1
+
+
+### Eliminar un superhéroe mediante su nombre
+DELETE http://localhost:3000/api/heroes/nombreSuperHeroe/hulk HTTP/1.1

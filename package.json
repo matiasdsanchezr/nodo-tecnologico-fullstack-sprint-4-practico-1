@@ -1,0 +1,25 @@
+{
+  "name": "nodo-tecnologico-fullstack-sprint-2-practico-3",
+  "version": "1.0.0",
+  "description": "Practico 3 Final",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/app.mjs",
+    "tailwind": "npx tailwindcss -i ./src/styles/tailwind.css -o ./public/styles/styles.css --watch",
+    "dev": "nodemon ./src/app.mjs -e js,mjs,cjs,json,ejs & npm run tailwind"
+  },
+  "author": "Matias Damian Sanchez Romero",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "express-ejs-layouts": "^2.5.1",
+    "express-validator": "^7.2.0",
+    "mongoose": "^8.7.3"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.14"
+  }
+}

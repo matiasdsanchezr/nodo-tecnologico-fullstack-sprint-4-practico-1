@@ -1,0 +1,144 @@
+<h1 class="text-center font-light p-3">AGREGAR SUPERHÉROE</h1>
+<!-- <hr /> -->
+<!-- Sección principal -->
+<section class="container mx-auto">
+  <!-- <h2 class="text-center font-light p-3">DATOS DEL NUEVO SUPERHÉROE</h2> -->
+
+  <!-- Formulario con los datos del nuevo superhéroe -->
+  <form
+    action="/api/heroes/agregar"
+    method="post"
+    class="bg-secondary-background p-3 grid gap-3 max-w-[600px] m-auto sm:rounded-md sm:border sm:border-white/20"
+    id="agregarSuperheroeForm"
+  >
+    <div class="grid sm:flex gap-3 flex-1 [&>*]:flex-1">
+      <label for="nombreSuperHeroe" class="">Nombre del superhéroe</label>
+      <input
+        type="text"
+        name="nombreSuperHeroe"
+        id="nombreSuperHeroe"
+        minlength="3"
+        maxlength="60"
+        required
+      />
+    </div>
+    <div class="grid sm:flex gap-3 flex-1 [&>*]:flex-1">
+      <label for="nombreReal" class="">Nombre real</label>
+      <input
+        type="text"
+        name="nombreReal"
+        id="nombreReal"
+        minlength="3"
+        maxlength="60"
+        required
+      />
+    </div>
+    <div class="grid sm:flex gap-3 flex-1 [&>*]:flex-1">
+      <label for="edad" class="">Edad</label>
+      <input type="number" name="edad" id="edad" min="0" required />
+    </div>
+    <div class="grid sm:flex gap-3 flex-1 [&>*]:flex-1">
+      <label for="planetaOrigen" class="">Planeta de origen (Opcional)</label>
+      <input type="text" name="planetaOrigen" id="planetaOrigen" />
+    </div>
+    <div class="grid sm:flex gap-3 flex-1 [&>*]:flex-1">
+      <label for="debilidad" class="">Debilidad</label>
+      <input type="text" name="debilidad" id="debilidad" required />
+    </div>
+    <div class="grid sm:flex gap-3 flex-1 [&>*]:flex-1">
+      <label for="creador" class="">Creador</label>
+      <input type="text" name="creador" id="creador" required />
+    </div>
+
+    <!-- Lista de poderes -->
+    <fieldset class="grid gap-3 border border-solid border-gray-300 p-3 rounded-md">
+      <legend class="p-3">Poderes</legend>
+      <div id="poderesContainer" class="grid gap-2">
+        <input type="text" name="poderes[]" placeholder="Ingrese un poder" required />
+      </div>
+      <button type="button" class="" onclick="agregarPoder()">Añadir otro poder</button>
+    </fieldset>
+
+    <!-- Lista de enemigos -->
+    <fieldset class="grid gap-3 border border-solid border-gray-300 p-3 rounded-md">
+      <legend class="p-3">Enemigos</legend>
+      <div id="enemigosContainer" class="grid gap-2">
+        <input
+          type="text"
+          name="enemigos[]"
+          placeholder="Ingrese el nombre del enemigo"
+        />
+      </div>
+      <button type="button" class="" onclick="agregarEnemigo()">Añadir enemigo</button>
+    </fieldset>
+
+    <!-- Lista de aliados -->
+    <fieldset class="grid gap-3 border border-solid border-gray-300 p-3 rounded-md">
+      <legend class="p-3">Aliados</legend>
+      <div id="aliadosContainer" class="grid gap-2">
+        <input type="text" name="aliados[]" placeholder="Ingrese el nombre del aliado" />
+      </div>
+      <button type="button" class="" onclick="agregarAliado()">Añadir aliado</button>
+    </fieldset>
+
+    <!-- Botones -->
+    <div class="flex gap-3 justify-end">
+      <button type="submit" class="button">
+        Aceptar
+      </button>
+      <button type="reset" class="button bg-slate-400 hover:border-slate-400">Reiniciar</button>
+    </div>
+  </form>
+</section>
+
+<!-- Scripts de la vista -->
+<script>
+  function agregarPoder() {
+    const poderesContainer = document.getElementById("poderesContainer");
+    const newPowerField = document.createElement("input");
+    newPowerField.type = "text";
+    newPowerField.name = "poderes[]";
+    newPowerField.placeholder = "Ingrese un poder";
+    newPowerField.className = "p-1 rounded-md";
+    poderesContainer.appendChild(newPowerField);
+  }
+
+  function agregarEnemigo() {
+    const enemigosContainer = document.getElementById("enemigosContainer");
+    const nuevoInput = document.createElement("input");
+    nuevoInput.type = "text";
+    nuevoInput.name = "enemigos[]";
+    nuevoInput.placeholder = "Ingrese un enemigo";
+    nuevoInput.className = "p-1 rounded-md";
+    enemigosContainer.appendChild(nuevoInput);
+  }
+
+  function agregarAliado() {
+    const aliadosContainer = document.getElementById("aliadosContainer");
+    const nuevoInput = document.createElement("input");
+    nuevoInput.type = "text";
+    nuevoInput.name = "aliados[]";
+    nuevoInput.placeholder = "Nombre del aliado";
+    nuevoInput.className = "p-1 rounded-md";
+    aliadosContainer.appendChild(nuevoInput);
+  }
+
+  // Desactivar todos los inputs cuando se envia el formulario
+  document
+    .querySelector("#agregarSuperheroeForm")
+    .addEventListener("submit", async (e) => {
+      e.target.querySelectorAll("input").forEach((input) => {
+        if (!input.value) input.disabled = true;
+      });
+    });
+
+  // Habilitar todos los inputs al salir de la página
+  window.onunload = function () {
+    document
+      .querySelector("#agregarSuperheroeForm")
+      .querySelectorAll("input")
+      .forEach((input) => {
+        input.disabled = false;
+      });
+  };
+</script>

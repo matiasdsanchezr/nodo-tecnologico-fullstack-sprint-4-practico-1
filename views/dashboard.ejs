@@ -1,0 +1,81 @@
+<div class="text-center">
+  <h1 class="font-light p-3">DASHBOARD</h1>
+</div>
+<!-- Sección principal -->
+<section class="container mx-auto mb-6">
+  <h2 class="text-center p-3 font-light">LISTA DE SUPERHÉROES</h2>
+  <ul class="columns-xs gap-3">
+    <% superheroes.forEach((superheroe) =>{ %>
+    <!-- Tarjeta con información del superhéroe -->
+    <li class="break-inside-avoid-column mb-3">
+      <div
+        class="flex flex-col gap-1 rounded-md p-3 border border-white/25 bg-secondary-background"
+      >
+        <h4><b>Nombre de superhéroe:</b> <%= superheroe.nombreSuperHeroe %></h4>
+        <h4><b>Nombre real:</b> <%= superheroe.nombreReal %></h4>
+        <h4><b>Edad:</b> <%= superheroe.edad %></h4>
+        <h4><b>Planeta de origen:</b> <%= superheroe.planetaOrigen %></h4>
+        <h4><b>Debilidad:</b> <%= superheroe.debilidad %></h4>
+        <div>
+          <h4 class="font-bold">Poderes:</h4>
+          <ul class="m-0 p-0">
+            <% superheroe.poderes.forEach(poder =>{ %>
+            <li><%= poder %></li>
+            <% }); %>
+          </ul>
+        </div>
+        <hr class="border-t border-black/50" />
+        <div>
+          <h4 class="font-bold">Aliados:</h4>
+          <ul>
+            <% superheroe.aliados.forEach(aliado =>{ %>
+            <li><%= aliado %></li>
+            <% }); %>
+          </ul>
+        </div>
+        <hr class="border-t border-black/50" />
+        <div>
+          <h4 class="font-bold">Enemigos:</h4>
+          <ul>
+            <% superheroe.enemigos.forEach(enemigo =>{ %>
+            <li><%= enemigo %></li>
+            <% }); %>
+          </ul>
+        </div>
+        <hr class="border-t border-black/50" />
+        <h4><b>Creador:</b> <%= superheroe.creador ?? "Desconocido" %></h4>
+        <h4><b>ID:</b> <%= superheroe._id %></h4>
+        <div class="flex justify-end gap-3 p-2 text-white">
+          <a href="/api/heroes/<%= superheroe._id %>/editar" class="button">Editar</a>
+          <button
+            class="button bg-red-500 hover:border-red-500"
+            onclick="eliminarSuperHeroe('<%= superheroe._id %>', '<%= superheroe.nombreSuperHeroe%>')"
+          >
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </li>
+    <% }); %>
+  </ul>
+</section>
+
+<!-- Scripts de la vista -->
+<script>
+  const eliminarSuperHeroe = async (superheroeId, nombreSuperHeroe) => {
+    if (!confirm(`¿Desea eliminar el superhéroe con nombre: ${nombreSuperHeroe}?`))
+      return;
+
+    try {
+      const response = await fetch(`/api/heroes/${superheroeId}`, {
+        headers: { "Content-Type": "application/json" },
+        method: "DELETE",
+      });
+      if (response.status === 204) location.reload();
+      else alert("Ocurrio un error, no se pudo eliminar el heróe.");
+    } catch (e) {
+      console.error(e);
+      alert("Se produjo un error al eliminar el superhéroe");
+    }
+  };
+</script>

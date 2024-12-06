@@ -1,0 +1,174 @@
+<h1 class="text-center p-3 font-light">EDITAR SUPERHÉROE</h1>
+<section class="container mx-auto">
+  <!-- <h2 class="text-center font-light p-3">INGRESAR NUEVOS DATOS DEL SUPERHÉROE</h2> -->
+  <div
+    class="grid grid-cols-1 mx-auto max-w-6xl lg:grid-cols-2 border-2 border-white/10 rounded-md"
+  >
+    <div
+      class="grid content-start gap-1 p-3 size-full text-center rounded-l-md bg-primary/30"
+    >
+      <h3 class="p-2">Datos Actuales</h3>
+      <h4><b>Nombre de superhéroe:</b> <%= superheroe.nombreSuperHeroe %></h4>
+      <h4><b>ID:</b> <span id="superheroeId"><%= superheroe._id %></span></h4>
+      <h4><b>Nombre real:</b> <%= superheroe.nombreReal %></h4>
+      <h4><b>Edad:</b> <%= superheroe.edad %></h4>
+      <h4><b>Planeta de origen:</b> <%= superheroe.planetaOrigen %></h4>
+      <h4><b>Debilidad:</b> <%= superheroe.debilidad %></h4>
+      <div>
+        <h4 class="font-bold">Poderes:</h4>
+        <ul class="m-0 p-0">
+          <% superheroe.poderes.forEach(poder =>{ %>
+          <li><%= poder %></li>
+          <% }); %>
+        </ul>
+      </div>
+      <hr />
+      <div>
+        <h4 class="font-bold">Aliados:</h4>
+        <ul>
+          <% superheroe.aliados.forEach(aliado =>{ %>
+          <li><%= aliado %></li>
+          <% }); %>
+        </ul>
+      </div>
+      <hr />
+      <div>
+        <h4 class="font-bold">Enemigos:</h4>
+        <ul>
+          <% superheroe.enemigos.forEach(enemigo =>{ %>
+          <li><%= enemigo %></li>
+          <% }); %>
+        </ul>
+      </div>
+      <hr />
+      <h4><b>Creador:</b> <%= superheroe.creador ?? "Desconocido" %></h4>
+    </div>
+    <form
+      method="post"
+      class="bg-secondary-background rounded-r-md p-3 grid gap-3 size-full"
+      id="editarSuperheroeForm"
+    >
+      <div class="flex-1 grid grid-cols-1 gap-3 [&>*]:w-full sm:grid-cols-2">
+        <!-- Nombre del superhéroe -->
+        <label for="nombreSuperHeroe">Nombre del superhéroe</label>
+        <input
+          type="text"
+          name="nombreSuperHeroe"
+          id="nombreSuperHeroe"
+          minlength="3"
+          maxlength="60"
+        />
+        <!-- Nombre real -->
+        <label for="nombreReal">Nombre real</label>
+        <input
+          type="text"
+          name="nombreReal"
+          id="nombreReal"
+          minlength="3"
+          maxlength="60"
+        />
+        <!-- Edad -->
+        <label for="edad">Edad</label>
+        <input type="number" name="edad" id="edad" min="0" />
+        <!-- Planeta de origen -->
+        <label for="planetaOrigen">Planeta de origen</label>
+        <input type="text" name="planetaOrigen" id="planetaOrigen" />
+        <!-- Debilidad -->
+        <label for="debilidad">Debilidad</label>
+        <input type="text" name="debilidad" id="debilidad" />
+        <!-- Usuario creador -->
+        <label for="creador">Creador</label>
+        <input type="text" name="creador" id="creador" />
+      </div>
+      <!-- Lista de poderes -->
+      <fieldset class="grid gap-3 p-3 rounded-md">
+        <legend class="p-3">Poderes</legend>
+        <div id="poderesContainer" class="grid gap-2">
+          <input type="text" name="poderes[]" placeholder="Ingrese un poder" />
+        </div>
+        <button type="button" onclick="agregarPoder()">Añadir otro poder</button>
+      </fieldset>
+      <!-- Lista de enemigos -->
+      <fieldset class="grid gap-3 p-3 rounded-md">
+        <legend class="p-3">Enemigos</legend>
+        <div id="enemigosContainer" class="grid gap-2"></div>
+        <button type="button" onclick="agregarEnemigo()">Añadir enemigo</button>
+      </fieldset>
+      <!-- Lista de aliados -->
+      <fieldset class="grid gap-3 p-3 rounded-md">
+        <legend class="p-3">Aliados</legend>
+        <div id="aliadosContainer" class="grid gap-2"></div>
+        <button type="button" onclick="agregarAliado()">Añadir aliado</button>
+      </fieldset>
+      <small>Nota: Todos los campos son opcionales</small>
+      <!-- Botones -->
+      <div class="flex gap-3 justify-end">
+        <button type="submit" class="button">Aceptar</button>
+        <button type="reset" class="button bg-slate-400 hover:border-slate-400">
+          Limpiar
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- Scripts de la vista -->
+<script>
+  // Agregar un campo adicional para ingresar un poder
+  function agregarPoder() {
+    const poderesContainer = document.getElementById("poderesContainer");
+    const nuevoInput = document.createElement("input");
+    nuevoInput.type = "text";
+    nuevoInput.name = "poderes[]";
+    nuevoInput.placeholder = "Ingrese un poder";
+    nuevoInput.className = "p-1 rounded-md";
+    poderesContainer.appendChild(nuevoInput);
+  }
+
+  // Agregar un campo adicional para ingresar un enemigo
+  function agregarEnemigo() {
+    const enemigosContainer = document.getElementById("enemigosContainer");
+    const nuevoInput = document.createElement("input");
+    nuevoInput.type = "text";
+    nuevoInput.name = "enemigos[]";
+    nuevoInput.placeholder = "Ingrese un enemigo";
+    nuevoInput.className = "p-1 rounded-md";
+    enemigosContainer.appendChild(nuevoInput);
+  }
+
+  // Agregar un campo adicional para ingresar un aliado
+  function agregarAliado() {
+    const aliadosContainer = document.getElementById("aliadosContainer");
+    const nuevoInput = document.createElement("input");
+    nuevoInput.type = "text";
+    nuevoInput.name = "aliados[]";
+    nuevoInput.placeholder = "Nombre del aliado";
+    nuevoInput.className = "p-1 rounded-md";
+    aliadosContainer.appendChild(nuevoInput);
+  }
+
+  // Deshabilitar inputs al enviar el formulario
+  document
+    .querySelector("#editarSuperheroeForm")
+    .addEventListener("submit", async (e) => {
+      const inputs = Array.from(e.target.querySelectorAll("input"));
+      if (inputs.filter((input) => input.value) < 1) {
+        alert("Por favor ingresar al menos un dato para actualizar");
+        e.preventDefault();
+        return;
+      }
+      inputs.forEach((input) => {
+        if (!input.value) input.disabled = true;
+      });
+    });
+
+  // Habilitar todos los inputs al salir de la página
+  window.onunload = function () {
+    document
+      .querySelector("#editarSuperheroeForm")
+      .querySelectorAll("input")
+      .forEach((input) => {
+        input.disabled = false;
+      });
+  };
+</script>

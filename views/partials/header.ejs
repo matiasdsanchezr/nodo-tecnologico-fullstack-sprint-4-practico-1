@@ -1,0 +1,77 @@
+<% if(!locals.section) locals.section = "" %>
+
+<header
+  class="sticky top-0 p-3 shadow-sm  sm:flex sm:justify-between sm: content-center"
+>
+  <div class="flex justify-between">
+    <!-- Logo -->
+    <a
+      href="/api/heroes"
+      class="flex items-center relative justify-center text-center font-light select-none text-2xl md:text-3xl lg:text-4xl"
+    >
+      <img
+        width="100"
+        height="100"
+        src="https://img.icons8.com/external-flat-icons-inmotus-design/100/external-america-super-hero-flat-icons-inmotus-design-2.png"
+        alt="external-Captain-America-people-and-avatars-those-icons-lineal-those-icons"
+        class="block h-14 w-auto relative top-[3px]"
+      /><span class="block">SUPERHEROES</span>
+    </a>
+    <!-- Boton "Menu" en dispositivos moviles -->
+    <button class="sm:hidden" id="showNavButton">MENU</button>
+  </div>
+  <!-- Navbar -->
+  <nav
+    class="absolute bg-primary w-full left-0 top-full hidden p-3 sm:relative sm:w-auto sm:block my-auto"
+    id="nav"
+  >
+    <ul class="sm:flex justify-start gap-3">
+      <li>
+        <a
+          href="/api/heroes"
+          class="block border-white p-2 <%= section == 'Dashboard' ? 'border rounded-md' : '' %>"
+          >Dashboard</a
+        >
+      </li>
+      <li>
+        <a
+          href="/api/heroes/agregar"
+          class="block border-white p-2 <%= section == 'Agregar' ? 'border rounded-md' : '' %>"
+          >Agregar</a
+        >
+      </li>
+      <li>
+        <a
+          href="/api/heroes/contacto"
+          class="block border-white p-2 <%= section == 'Contacto' ? 'border rounded-md' : '' %>"
+          >Contacto</a
+        >
+      </li>
+      <li>
+        <a
+          href="/api/heroes/acerca-de"
+          class="block border-white p-2 <%= section == 'Acerca de' ? 'border rounded-md' : '' %>"
+          >Acerca de</a
+        >
+      </li>
+    </ul>
+  </nav>
+</header>
+<script>
+  addEventListener("load", (event) => {
+    const showNavButton = document.getElementById("showNavButton");
+    showNavButton.addEventListener("click", toggleNav, false);
+  });
+
+  function toggleNav(e) {
+    console.log(e);
+    e.stopPropagation();
+    e.preventDefault();
+    const navbar = document.getElementById("nav");
+    if (navbar.classList.contains("hidden")) {
+      navbar.classList.remove("hidden");
+    } else {
+      navbar.classList.add("hidden");
+    }
+  }
+</script>
